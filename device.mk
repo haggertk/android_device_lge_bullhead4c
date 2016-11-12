@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
+# Boot animation
+TARGET_BOOTANIMATION_HALF_RES := true
+
 # Init
 PRODUCT_COPY_FILES += \
     device/lge/bullhead4c/rootdir/etc/init.bullhead.rc:root/init.bullhead.rc
