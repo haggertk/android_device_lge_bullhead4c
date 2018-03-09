@@ -14,3 +14,10 @@
 # limitations under the License.
 #
 
+# Init
+PRODUCT_COPY_FILES += \
+    device/lge/bullhead4c/rootdir/etc/init.bullhead.rc:root/init.bullhead.rc
+
+# Power configuration file
+PRODUCT_COPY_FILES += \
+    device/lge/bullhead4c/rootdir/bin/init.bullhead.power.sh:system/bin/init.bullhead.power.sh
