@@ -17,6 +17,9 @@
 # inherit from bullhead
 include device/lge/bullhead/BoardConfig.mk
 
+# Assert
+TARGET_OTA_ASSERT_DEVICE := bullhead,bullhead4c
+
 # Kernel (only use the Cortex-A53 cores at boot)
 BOARD_KERNEL_CMDLINE := $(subst boot_cpus=0-5,boot_cpus=0-3,$(BOARD_KERNEL_CMDLINE))
 BOARD_KERNEL_CMDLINE += maxcpus=4
