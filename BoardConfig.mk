@@ -23,3 +23,10 @@ TARGET_OTA_ASSERT_DEVICE := bullhead,bullhead4c
 # Kernel (only use the Cortex-A53 cores at boot)
 BOARD_KERNEL_CMDLINE := $(subst boot_cpus=0-5,boot_cpus=0-3,$(BOARD_KERNEL_CMDLINE))
 BOARD_KERNEL_CMDLINE += maxcpus=4
+
+# TWRP Support - Optional
+ifeq ($(WITH_TWRP),true)
+-include device/lge/bullhead4c/twrp.mk
+endif
+
+-include vendor/lge/bullhead4c/BoardConfigVendor.mk
