@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2018, The LineageOS Project. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -360,67 +361,10 @@ void undo_hint_action(int hint_id)
     }
 }
 
-/*
- * Used to release initial lock holding
- * two cores online when the display is on
- */
-void undo_initial_hint_action()
-{
-    if (qcopt_handle) {
-        if (perf_lock_rel) {
-            perf_lock_rel(1);
-        }
-    }
-}
-
-/* Set a static profile */
-void set_profile(int profile)
-{
-    if (qcopt_handle) {
-        if (perf_lock_use_profile) {
-            profile_handle = perf_lock_use_profile(profile_handle, profile);
-            if (profile_handle == -1)
-                ALOGE("Failed to set profile.");
-            if (profile < 0)
-                profile_handle = 0;
-        }
-    }
-}
-
-void start_prefetch(int pid, const char* packageName) {
-    if (iop_handle) {
-        if (perf_io_prefetch_start) {
-            perf_io_prefetch_start(pid, packageName);
-        }
-    }
-}
-
 long long calc_timespan_us(struct timespec start, struct timespec end)
 {
     long long diff_in_us = 0;
     diff_in_us += (end.tv_sec - start.tv_sec) * USINSEC;
     diff_in_us += (end.tv_nsec - start.tv_nsec) / NSINUS;
     return diff_in_us;
-}
-
-int get_soc_id(void)
-{
-    int fd;
-    int soc_id = -1;
-    char buf[10] = { 0 };
-
-    if (!access(SOC_ID_0, F_OK))
-        fd = open(SOC_ID_0, O_RDONLY);
-    else
-        fd = open(SOC_ID_1, O_RDONLY);
-
-    if (fd >= 0) {
-        if (read(fd, buf, sizeof(buf) - 1) == -1)
-            ALOGW("Unable to read soc_id");
-        else
-            soc_id = atoi(buf);
-    }
-
-    close(fd);
-    return soc_id;
 }

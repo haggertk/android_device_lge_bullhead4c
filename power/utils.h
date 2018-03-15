@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2012, The Linux Foundation. All rights reserved.
+ * Copyright (c) 2018, The LineageOS Project. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -34,16 +35,8 @@ int sysfs_write(char *path, char *s);
 int get_scaling_governor(char governor[], int size);
 int get_scaling_governor_check_cores(char governor[], int size,int core_num);
 
-void vote_ondemand_io_busy_off();
-void unvote_ondemand_io_busy_off();
-void vote_ondemand_sdf_low();
-void unvote_ondemand_sdf_low();
 void perform_hint_action(int hint_id, int resource_values[],
     int num_resources);
 void undo_hint_action(int hint_id);
-void undo_initial_hint_action();
-void set_profile(int profile);
-void start_prefetch(int pid, const char *packageName);
 
 long long calc_timespan_us(struct timespec start, struct timespec end);
-int get_soc_id(void);

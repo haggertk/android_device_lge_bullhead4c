@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
  * Copyright (c) 2014, The CyanogenMod Project
+ * Copyright (c) 2018, The LineageOS Project
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -49,7 +50,6 @@
 #include "hint-data.h"
 #include "performance.h"
 #include "power-common.h"
-#include "power-feature.h"
 
 static int saved_dcvs_cpu0_slack_max = -1;
 static int saved_dcvs_cpu0_slack_min = -1;
@@ -226,10 +226,6 @@ int __attribute__ ((weak)) get_number_of_profiles()
     return 0;
 }
 
-#ifdef SET_INTERACTIVE_EXT
-extern void cm_power_set_interactive_ext(int on);
-#endif
-
 void set_interactive(struct power_module *module, int on)
 {
     char governor[80];
@@ -247,10 +243,6 @@ void set_interactive(struct power_module *module, int on)
         goto out;
 
     display_hint_sent = !on;
-
-#ifdef SET_INTERACTIVE_EXT
-    cm_power_set_interactive_ext(on);
-#endif
 
     if (set_interactive_override(module, on) == HINT_HANDLED) {
         goto out;
@@ -440,15 +432,6 @@ out:
 
 void set_feature(struct power_module *module, feature_t feature, int state)
 {
-#ifdef TAP_TO_WAKE_NODE
-    char tmp_str[NODE_MAX];
-    if (feature == POWER_FEATURE_DOUBLE_TAP_TO_WAKE) {
-        snprintf(tmp_str, NODE_MAX, "%d", state);
-        sysfs_write(TAP_TO_WAKE_NODE, tmp_str);
-        return;
-    }
-#endif
-    set_device_specific_feature(module, feature, state);
 }
 
 int get_feature(struct power_module *module __unused, feature_t feature)
@@ -506,7 +489,7 @@ struct power_module HAL_MODULE_INFO_SYM = {
         .hal_api_version = HARDWARE_HAL_API_VERSION,
         .id = POWER_HARDWARE_MODULE_ID,
         .name = "QCOM Power HAL",
-        .author = "Qualcomm/CyanogenMod",
+        .author = "LineageOS",
         .methods = &power_module_methods,
     },
 
