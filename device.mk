@@ -24,3 +24,7 @@ PRODUCT_COPY_FILES += \
 # Power configuration file
 PRODUCT_COPY_FILES += \
     device/lge/bullhead4c/rootdir/bin/init.bullhead.power.sh:system/bin/init.bullhead.power.sh
+
+# Sensors
+PRODUCT_PACKAGES += \
+    activity_recognition.bullhead4c \

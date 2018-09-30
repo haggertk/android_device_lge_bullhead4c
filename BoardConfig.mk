@@ -24,4 +24,8 @@ TARGET_OTA_ASSERT_DEVICE := bullhead,bullhead4c
 BOARD_KERNEL_CMDLINE := $(subst boot_cpus=0-5,boot_cpus=0-3,$(BOARD_KERNEL_CMDLINE))
 BOARD_KERNEL_CMDLINE += maxcpus=4
 
+# Power
 TARGET_POWERHAL_VARIANT := bullhead4c
+
+# Sensors
+NANOHUB_SENSORHAL_NAME_OVERRIDE := sensors.bullhead
